@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>动态壁纸</title>
+<style>
+    /* --- 新增：全局淡入动画定义 --- */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px); /* 初始位置在下方20px */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0); /* 最终位置恢复原位 */
+        }
+    }
+
+    /* --- 新增：应用淡入动画到所有关键元素 --- */
+    .container > table, /* 最外层表格 */
+    .container img,     /* 图片 */
+    .box,               /* 标题盒子 */
+    .container a        /* 所有链接按钮 */
+    {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0; /* 初始状态为透明 */
+    }
+
+    /* --- 新增：为不同元素设置动画延迟，创造层次感 --- */
+    .container > table { animation-delay: 0.1s; }
+    .container img     { animation-delay: 0.3s; }
+    .box               { animation-delay: 0.5s; }
+    .container a       { animation-delay: 0.7s; }
+
+    /* --- 原有样式保持不变 --- */
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+        padding: 0px;
+        height: auto;
+        width: auto;
+    }
+
+    .box {
+        width: 200px;
+        height: 200px;
+        background: ;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* --- 新增：超链接UI和交互优化 --- */
+    /* 基础按钮样式 */
+    .container a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        line-height: 40px; /* 垂直居中 */
+        text-decoration: none;
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px; /* 圆角 */
+        transition: all 0.3s ease; /* 平滑过渡 */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 轻微阴影 */
+    }
+
+    /* 鼠标悬停时的效果（变暗） */
+    .container a:hover {
+        background-color: #002050 !important; /* 颜色加深、变暗 */
+        transform: scale(1.05); /* 轻微放大 */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* 阴影加深 */
+    }
+
+    /* 鼠标点击瞬间的效果 */
+    .container a:active {
+        transform: scale(0.98); /* 轻微缩小 */
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+
+<body background="image/bj 2.png">
+<div class="container">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tbody>
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <td height="100"></td>
+            </tr>
+            <tr>
+              <td align="center"><table width="20%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td align="center"><img src="image/b3290ef64be9ed8471e9b4a6dceb6e23.png" width="200" height="200" alt="" style="max-width:100%; height:auto; display:block;"></td>
+                  </tr>
+                </tbody>
+              </table></td>
+            </tr>
+            <tr>
+              <td align="center"><div class="box"><font face="黑体" size="5">Wallpaper<br>动态壁纸</font></div></td>
+            </tr>
+            <tr>
+              <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td width="29.5%">&nbsp;</td>
+                    <!-- 链接按钮1 -->
+                    <td width="13%" bgcolor="#000577" align="center" height="10%">
+                        <a href="https://www.123pan.com/s/AuU0Vv-kBlsH.html" target="_blank">
+                            <font color="#FFFFFF" size="3">Win下载</font>
+                        </a>
+                    </td>
+                    <td width="5%">&nbsp;</td>
+                    <!-- 链接按钮2 -->
+                    <td width="13%" bgcolor="#000577" align="center">
+                        <a href="https://www.wallpaperengine.io/android/zh-hant" target="_blank">
+                            <font color="#FFFFFF" size="3">安卓下载</font>
+                        </a>
+                    </td>
+                    <td width="29.5%">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table></td>
+            </tr>
+            <tr>
+              <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td><p>&nbsp;</p>
+                      <p>&nbsp;</p>
+                      <p align="center">windows版下载提取码：Adam</p>
+                      <p>&nbsp;</p>
+                      <p>&nbsp;</p></td>
+                  </tr>
+                  <tr>
+                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td width="40%">&nbsp;</td>
+                          <!-- 链接按钮3 -->
+                          <td width="20%" height="40" bgcolor="#00367F" align="center">
+                              <a href="web1.html" target="_blank">
+                                  <font color="#FFFFFF" size="4">壁纸下载</font>
+                              </a>
+                          </td>
+                          <td width="40%">&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                  </tr>
+                  <tr>
+                    <td><p>&nbsp;</p>
+                      <p>&nbsp;</p>
+                      <p>&nbsp;</p></td>
+                  </tr>
+                </tbody>
+              </table></td>
+            </tr>
+            <tr>
+              <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr>
+                    <td width="40%">&nbsp;</td>
+                    <!-- 链接按钮4 -->
+                    <td width="20%" height="40" bgcolor="#00367F" align="center">
+                        <a href="web3.html" target="_blank">
+                            <font color="#FFFFFF" size="4">壁纸教程</font>
+                        </a>
+                    </td>
+                    <td width="40%">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table></td>
+            </tr>
+            <tr>
+              <td><p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p></td>
+            </tr>
+            <tr>
+              <td bgcolor="#02032A" height="150" align="center"><font color="#767676" size="5">站主：Timeless<br>
+副站主：十叶<br>
+网页设计：Timele、十叶</font></td>
+            </tr>
+          </tbody>
+        </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

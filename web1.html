@@ -8,53 +8,31 @@
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(30px); /* 初始位置在下方30px */
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
-            transform: translateY(0); /* 最终位置恢复原位 */
+            transform: translateY(0);
         }
     }
 
-    /* --- 新增：应用淡入动画到关键元素 --- */
-    .header-container,  /* 顶部图片区域 */
-    .container .box     /* 所有壁纸卡片 */
-    {
+    /* --- 修改：应用淡入动画 --- */
+    .header-container {
         animation: fadeInUp 0.8s ease-out forwards;
-        opacity: 0; /* 初始状态为透明 */
+        opacity: 0;
+        animation-delay: 0.2s;
     }
-
-    /* --- 新增：为不同元素设置动画延迟，创造层次感 --- */
-    .header-container { animation-delay: 0.2s; }
-    /* 为壁纸卡片设置递增的延迟，实现瀑布流效果 */
-    .container .box:nth-child(1) { animation-delay: 0.4s; }
-    .container .box:nth-child(2) { animation-delay: 0.5s; }
-    .container .box:nth-child(3) { animation-delay: 0.6s; }
-    .container .box:nth-child(4) { animation-delay: 0.7s; }
-    .container .box:nth-child(5) { animation-delay: 0.8s; }
-    .container .box:nth-child(6) { animation-delay: 0.9s; }
-    .container .box:nth-child(7) { animation-delay: 1.0s; }
-    .container .box:nth-child(8) { animation-delay: 1.1s; }
-    .container .box:nth-child(9) { animation-delay: 1.2s; }
-    .container .box:nth-child(10) { animation-delay: 1.3s; }
-    .container .box:nth-child(11) { animation-delay: 1.4s; }
-    .container .box:nth-child(12) { animation-delay: 1.5s; }
-    .container .box:nth-child(13) { animation-delay: 1.6s; }
-    .container .box:nth-child(14) { animation-delay: 1.7s; }
-    .container .box:nth-child(15) { animation-delay: 1.8s; }
-    .container .box:nth-child(16) { animation-delay: 1.9s; }
-
-    /* --- 原有样式保持不变 --- */
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 20px;
-        box-sizing: border-box;
-        justify-content: center;
-    }
-
-    .box {
+    
+    /* 
+     * 修改：为 .box 基础样式设置动画，但不设置 delay
+     * 使用 CSS 变量 --animation-delay 来接收 JS 动态设置的值
+     */
+    .container .box {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+        animation-delay: var(--animation-delay, 0s); /* 使用变量，默认值为 0s */
+        
+        /* 其他原有样式保持不变 */
         width: 15vw;
         aspect-ratio: 1 / 1;
         max-width: 230px;
@@ -67,9 +45,19 @@
         overflow: hidden;
         font-size: 24px;
         padding: 0;
-        border-radius: 8px; /* 新增：添加一点圆角更现代 */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 新增：轻微阴影增加立体感 */
-        transition: all 0.3s ease; /* 新增：为卡片本身的变化添加过渡 */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    /* --- 其他原有样式保持不变 --- */
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+        justify-content: center;
     }
     
     .box .content {
@@ -86,7 +74,7 @@
         display: block;
         width: 100%;
         height: 100%;
-        position: relative; /* 新增：为后续添加遮罩做准备 */
+        position: relative;
     }
     
     .box .content img,
@@ -95,22 +83,21 @@
         height: 100%;
         object-fit: cover;
         border: none;
-        transition: all 0.3s ease; /* 新增：图片变化过渡 */
+        transition: all 0.3s ease;
     }
 
-    /* --- 顶部 header 样式 --- */
     .header-container {
         width: 100%;
         display: flex;
         padding: 20px;
         box-sizing: border-box;
-        gap: 20px; /* 新增：两个图片之间的间距 */
+        gap: 20px;
     }
     .header-container a {
-        flex: 1; /* 新增：让两个链接平分宽度 */
+        flex: 1;
         display: block;
         border-radius: 8px;
-        overflow: hidden; /* 新增：确保图片圆角生效 */
+        overflow: hidden;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
     }
@@ -121,15 +108,11 @@
         object-fit: cover;
     }
 
-    /* --- 新增：超链接交互动画优化 --- */
-    
-    /* 1. 顶部图片链接交互 */
     .header-container a:hover {
-        transform: translateY(-5px); /* 轻微上浮 */
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2); /* 阴影加深 */
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
 
-    /* 2. 壁纸卡片链接交互 (变暗效果) */
     .box .content a::after {
         content: '';
         position: absolute;
@@ -137,24 +120,23 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0); /* 初始透明 */
+        background-color: rgba(0, 0, 0, 0);
         transition: background-color 0.3s ease;
-        border-radius: 8px; /* 与卡片圆角一致 */
+        border-radius: 8px;
     }
 
     .box:hover {
-        transform: translateY(-5px); /* 卡片整体上浮 */
+        transform: translateY(-5px);
         box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
     
     .box .content a:hover::after {
-        background-color: rgba(0, 0, 0, 0.3); /* 悬停时添加黑色遮罩，实现变暗效果 */
+        background-color: rgba(0, 0, 0, 0.3);
     }
     
-    /* 3. 点击效果 */
     .header-container a:active,
     .box .content a:active::after {
-        transform: scale(0.98); /* 轻微缩小 */
+        transform: scale(0.98);
     }
 
 </style>
@@ -189,6 +171,92 @@
 		<div class="box"><div class="content"><a href="https://wwah.lanzout.com/iYUGK3b4df0h" target="_blank"><img src="wallpaper/14.gif" alt="Animated Wallpaper"></a></div></div>
 		<div class="box"><div class="content"><a href="https://wwah.lanzout.com/ibUdj3b4dg7a" target="_blank"><img src="wallpaper/15.gif" alt="Animated Wallpaper"></a></div></div>
 		<div class="box"><div class="content"><a href="https://wwah.lanzout.com/iIMDF3b4dich" target="_blank"><img src="wallpaper/16.gif" alt="Animated Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/id3iL3b6equb" target="_blank"><img src="wallpaper/17.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/it4tk3b6g9pg" target="_blank"><img src="wallpaper/18.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ixkoQ3b6gdqb" target="_blank"><img src="wallpaper/19.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iwWgP3b6gfxa" target="_blank"><img src="wallpaper/20.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iGmZy3b6glpi" target="_blank"><img src="wallpaper/21.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iSTy33b6gt7i" target="_blank"><img src="wallpaper/22.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ik6Mo3b6gvud" target="_blank"><img src="wallpaper/23.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iWUvS3b6h9vi" target="_blank"><img src="wallpaper/24.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iKg3z3b6hgfe" target="_blank"><img src="wallpaper/25.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iEtqt3b6hine" target="_blank"><img src="wallpaper/26.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iJrTu3b6lcwb" target="_blank"><img src="wallpaper/27.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iKcOR3b6lf3a" target="_blank"><img src="wallpaper/28.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ib6kH3b6lg0d" target="_blank"><img src="wallpaper/29.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iqkpC3b6lgra" target="_blank"><img src="wallpaper/30.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iwatz3b6lirc" target="_blank"><img src="wallpaper/31.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iW4uR3b6lkfc" target="_blank"><img src="wallpaper/32.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/it4tq3b6llxg" target="_blank"><img src="wallpaper/33.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iHoWF3b6lmaj" target="_blank"><img src="wallpaper/34.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iNjwo3b6lmxc" target="_blank"><img src="wallpaper/35.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/i21fv3b6lnej" target="_blank"><img src="wallpaper/36.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/irh0U3b6loxe" target="_blank"><img src="wallpaper/37.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iVxMA3b6lqbe" target="_blank"><img src="wallpaper/38.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iGt4r3b6lqtc" target="_blank"><img src="wallpaper/39.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iLD9H3b6lrla" target="_blank"><img src="wallpaper/40.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/i6xIl3b6lsaf" target="_blank"><img src="wallpaper/41.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iqMpU3b6lste" target="_blank"><img src="wallpaper/42.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/itvfw3b6lueb" target="_blank"><img src="wallpaper/43.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ioO6n3b6lw8h" target="_blank"><img src="wallpaper/44.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iRXcg3b6lwti" target="_blank"><img src="wallpaper/45.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ijAw43b6l4cd" target="_blank"><img src="wallpaper/46.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ibN2S3b6l5yb" target="_blank"><img src="wallpaper/47.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ii04w3b6l6mf" target="_blank"><img src="wallpaper/48.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/ibKwu3b6l9ri" target="_blank"><img src="wallpaper/49.gif" alt="New Wallpaper"></a></div></div>
+		<div class="box">
+		<div class="content"><a href="https://wwah.lanzout.com/iY7nZ3b6la2j" target="_blank"><img src="wallpaper/50.gif" alt="New Wallpaper"></a></div></div>
     </div>
+
+    <!-- 新增：JavaScript 代码 -->
+    <script>
+        // 1. 获取所有 .box 元素
+        const boxes = document.querySelectorAll('.container .box');
+        
+        // 2. 定义初始延迟和每个元素之间的延迟增量
+        const initialDelay = 0.4; // 第一个 .box 的延迟时间 (秒)
+        const delayIncrement = 0.1; // 每个后续 .box 增加的延迟时间 (秒)
+
+        // 3. 遍历所有 .box 元素，并为它们设置 CSS 变量
+        boxes.forEach((box, index) => {
+            // 计算当前元素的延迟时间
+            const delay = initialDelay + (index * delayIncrement);
+            // 将延迟时间设置为 CSS 变量 --animation-delay
+            box.style.setProperty('--animation-delay', delay + 's');
+        });
+    </script>
 </body>
 </html>
